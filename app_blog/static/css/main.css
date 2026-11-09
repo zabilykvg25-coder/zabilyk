@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #f8f9fa;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+.article-block {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}

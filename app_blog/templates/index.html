@@ -1,61 +1,22 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Облік основних засобів</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f9f9f9; color: #333; }
-        h1 { color: #2c3e50; }
-        h2 { color: #34495e; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
-        ul { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        li { margin-bottom: 10px; }
-        .admin-link { display: inline-block; margin-bottom: 20px; padding: 10px 15px; background: #2c3e50; color: #fff; text-decoration: none; border-radius: 5px; }
-        .admin-link:hover { background: #34495e; }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-    <h1>Інформаційна система: Облік основних засобів (Варіант 9)</h1>
-    <a href="/admin/" class="admin-link" target="_blank">Перейти в панель адміністратора</a>
+{% block title %}Облік основних засобів{% endblock %}
 
-    <h2>Категорії основних засобів:</h2>
-    <ul>
-        {% for cat in categories %}
-            <li><strong>{{ cat.name }}</strong> — {{ cat.description }}</li>
-        {% empty %}
-            <li>Категорій ще немає. Додайте їх через адмінку.</li>
-        {% endfor %}
+{% block content %}
+<div class="article-block p-4">
+    <h1 class="mb-3">Інформаційна система: Облік основних засобів (Варіант 9)</h1>
+    <a href="/admin/" class="btn btn-primary mb-4" target="_blank">Перейти в панель адміністратора</a>
+
+    <h2 class="mb-3">Категорії основних засобів:</h2>
+    <ul class="list-group">
+        {% if categories %}
+            {% for cat in categories %}
+                <li class="list-group-item"><strong>{{ cat.name }}</strong> – {{ cat.description }}</li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item text-muted">Категорій ще немає. Додайте їх через панель адміністратора.</li>
+        {% endif %}
     </ul>
-
-    <h2>Картки основних засобів (ОЗ):</h2>
-    <ul>
-        {% for asset in assets %}
-            <li>
-                <strong>Інв. №:</strong> {{ asset.inventory_number }} |
-                <strong>Назва:</strong> {{ asset.name }} |
-                <strong>Категорія:</strong> {{ asset.category.name }} |
-                <strong>Вартість:</strong> {{ asset.initial_cost }} грн |
-                <strong>Статус:</strong> {{ asset.get_status_display }}
-            </li>
-        {% empty %}
-            <li>Основних засобів ще немає. Додайте їх через адмінку.</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Останні господарські операції:</h2>
-    <ul>
-        {% for op in operations %}
-            <li>
-                <strong>{{ op.get_operation_type_display }}</strong> —
-                Об'єкт: {{ op.asset.name }} |
-                Сума: {{ op.amount }} грн |
-                Дата: {{ op.date }} |
-                Проводка: {{ op.accounting_entry }}
-            </li>
-        {% empty %}
-            <li>Операцій ще немає.</li>
-        {% endfor %}
-    </ul>
-
-</body>
-</html>
+</div>
+{% endblock %}
